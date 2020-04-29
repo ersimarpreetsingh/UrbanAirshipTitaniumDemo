@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <id>com.demo.simar.air</id>
+    <name>UrbanAirshipDemo</name>
+    <version>1.0</version>
+    <publisher>simar</publisher>
+    <url/>
+    <description/>
+    <copyright>2020 by simar</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>d156a705-093f-441e-9444-e39a2d7fbac9</guid>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="run-on-main-thread" type="bool">true</property>
+  	<property name="com.urbanairship.development_app_key" type="string">YOUR APP KEY</property>
+  	<property name="com.urbanairship.development_app_secret" type="string">YOUR APP SECRET</property>
+  	<property name="com.urbanairship.in_production" type="bool">false</property>
+  	<property name="com.urbanairship.ios_foreground_notification_presentation_alert" type="bool">true</property>
+  <property name="com.urbanairship.ios_foreground_notification_presentation_badge" type="bool">true</property>
+  <property name="com.urbanairship.ios_foreground_notification_presentation_sound" type="bool">true</property>
+    <ios>
+        <enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
+        <use-app-thinning>true</use-app-thinning>
+        <plist>
+            <dict>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                    <string>UIInterfaceOrientationLandscapeLeft</string>
+                    <string>UIInterfaceOrientationLandscapeRight</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleDefault</string>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest android:versionCode="1" xmlns:android="http://schemas.android.com/apk/res/android"/>
+    </android>
+    <modules>
+        <module platform="android">hyperloop</module>
+        <module platform="iphone">com.urbanairship</module>
+    	<module platform="android">com.urbanairship</module>
+    </modules>
+    <deployment-targets>
+        <target device="windows">false</target>
+        <target device="iphone">false</target>
+        <target device="ipad">false</target>
+        <target device="android">true</target>
+    </deployment-targets>
+    <sdk-version>9.0.0.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+    <property name="appc-app-id" type="string">5ea9620aa301e339fda90236</property>
+</ti:app>

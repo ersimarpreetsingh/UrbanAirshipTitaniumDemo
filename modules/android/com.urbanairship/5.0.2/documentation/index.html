@@ -1,0 +1,216 @@
+<h1>Urban Airship Titanium Module</h1>
+
+<h2>Contributing Code</h2>
+
+<p>We accept pull requests! If you would like to submit a pull request, please fill out and submit a
+<a href="http://docs.urbanairship.com/contribution-agreement.html">Code Contribution Agreement</a>.</p>
+
+<h2>Requirements:</h2>
+
+<ul><li>Android <a href="http://docs.urbanairship.com/reference/push-providers/gcm.html#android-gcm-setup">GCM Setup</a></li><li>iOS <a href="http://docs.urbanairship.com/reference/push-providers/apns.html">APNS Setup</a></li></ul>
+
+<h2>Setup</h2>
+
+<p>Modify the <code>tiapp.xml</code> file to include the Urban Airship Config:</p>
+
+<p><code></code>`
+  &lt;!-- Production credentials --&gt;
+  &lt;property name=&quot;com.urbanairship.production<em>app</em>key&quot; type=&quot;string&quot;&gt;Your Production App Key&lt;/property&gt;
+  &lt;property name=&quot;com.urbanairship.production<em>app</em>secret&quot; type=&quot;string&quot;&gt;Your Production App Secret&lt;/property&gt;</p>
+
+<p>  &lt;!-- Development credentials --&gt;
+  &lt;property name=&quot;com.urbanairship.development<em>app</em>key&quot; type=&quot;string&quot;&gt;Your Development App Key&lt;/property&gt;
+  &lt;property name=&quot;com.urbanairship.development<em>app</em>secret&quot; type=&quot;string&quot;&gt;Your Development App Secret&lt;/property&gt;</p>
+
+<p>  &lt;!-- Selects between production vs development credentials --&gt;
+  &lt;property name=&quot;com.urbanairship.in_production&quot; type=&quot;bool&quot;&gt;false&lt;/property&gt;</p>
+
+<p>  &lt;!-- Android --&gt;
+  &lt;property name=&quot;com.urbanairship.gcm<em>sender&quot; type=&quot;String&quot;&gt;GCM Sender ID or Project Number&lt;/property&gt;
+  &lt;property name=&quot;com.urbanairship.notification</em>icon&quot; type=&quot;string&quot;&gt;Name of an icon in /project<em>name/platform/android/res/drawable folders, e.g. ic</em>notification.png&lt;/property&gt;
+  &lt;property name=&quot;com.urbanairship.notification<em>accent</em>color&quot; type=&quot;string&quot;&gt;Notification accent color, e.g. #ff0000&lt;/property&gt;</p>
+
+<p>  &lt;!-- iOS 10 alert foreground notification presentation option --&gt;
+  &lt;property name=&quot;com.urbanairship.ios<em>foreground</em>notification<em>presentation</em>alert&quot; type=&quot;bool&quot;&gt;true&lt;/property&gt;
+  &lt;!-- iOS 10 badge foreground notification presentation option --&gt;
+  &lt;property name=&quot;com.urbanairship.ios<em>foreground</em>notification<em>presentation</em>badge&quot; type=&quot;bool&quot;&gt;true&lt;/property&gt;
+  &lt;!-- iOS 10 sound foreground notification presentation option --&gt;
+  &lt;property name=&quot;com.urbanairship.ios<em>foreground</em>notification<em>presentation</em>sound&quot; type=&quot;bool&quot;&gt;true&lt;/property&gt;
+<code></code>`</p>
+
+<p>For iOS, enable background remote notifications in the <code>tiapp.xml</code> file:</p>
+
+<p><code>
+  ...
+  &lt;ios&gt;
+  &lt;plist&gt;
+  &lt;dict&gt;    
+      ...
+       &lt;key&gt;UIBackgroundModes&lt;/key&gt;
+       &lt;array&gt;
+           &lt;string&gt;remote-notification&lt;/string&gt;
+       &lt;/array&gt;
+  &lt;/dict&gt;
+  &lt;/plist&gt;
+  &lt;/ios&gt;
+  ...
+</code></p>
+
+<h2>Accessing the urbanairship Module</h2>
+
+<p>To access this module from JavaScript, you would do the following:</p>
+
+<p><code>
+    var UrbanAirship = require(&quot;com.urbanairship&quot;);
+</code></p>
+
+<h2>Events</h2>
+
+<h4>EVENT<em>CHANNEL</em>UPDATED</h4>
+
+<p>Listens for any channel updates. Event contains the following:
+ - channelId: The channel ID of the app instance.
+ - deviceToken: (iOS only) The device token.</p>
+
+<p><code>
+    UrbanAirship.addEventListener(UrbanAirship.EVENT_CHANNEL_UPDATED, function(e) {
+        Ti.API.info(&#39;Channel Updated: &#39; + UrbanAirship.channelId)
+    });
+</code></p>
+
+<h4>EVENT<em>PUSH</em>RECEIVED</h4>
+
+<p>Listens for any push received events. Event contains the following:
+ - message: The push alert message.
+ - extras: Map of all the push extras.
+ - notificationId: (Android only) The ID of the posted notification.</p>
+
+<p><code>
+    UrbanAirship.addEventListener(UrbanAirship.EVENT_PUSH_RECEIVED, function(e) {
+        Ti.API.info(&#39;Push received: &#39; + e.message);
+    });
+</code></p>
+
+<h4>EVENT<em>DEEP</em>LINK_RECEIVED</h4>
+
+<p>Listens for any deep link events. Event contains the following:
+ - deepLink: The deep link.</p>
+
+<p><code>
+    UrbanAirship.addEventListener(UrbanAirship.EVENT_DEEP_LINK_RECEIVED, function(e) {
+        Ti.API.info(&#39;DeepLink: &#39; + e.deepLink);
+    });
+</code></p>
+
+<h2>Properties</h2>
+
+<h4>channelId</h4>
+
+<p>Returns the app&#39;s channel ID. The channel ID might not be immediately available on a new install. Use
+the EVENT<em>CHANNEL</em>UPDATED event to be notified when it becomes available.</p>
+
+<p><code>
+    Ti.API.info(&#39;Channel ID: &#39; + UrbanAirship.channelId);
+</code></p>
+
+<h4>userNotificationsEnabled</h4>
+
+<p>Enables or disables user notifications. On iOS, user notifications can only be enabled and enabling
+notifications the first time will prompt the user to enable notifications.</p>
+
+<p><code>
+    UrbanAirship.userNotificationsEnabled = true;
+</code></p>
+
+<h4>tags</h4>
+
+<p>Sets or gets the channel tags. Tags can be used to segment the audience.</p>
+
+<p><code></code>`
+    UrbanAirship.tags = [&quot;test&quot;, &quot;titanium&quot;];</p>
+
+<pre><code>UrbanAirship.tags.forEach(function(tag) {
+    Ti.API.info(&quot;Tag: &quot; + tag);
+});</code></pre>
+
+<p><code></code>`</p>
+
+<h4>namedUser</h4>
+
+<p>Sets the namedUser for the device.</p>
+
+<p><code>
+    UrbanAirship.namedUser = &quot;totes mcgoats&quot;;
+</code></p>
+
+<h2>Methods</h2>
+
+<h3>getLaunchNotification([clear])</h3>
+
+<p>Gets the notification that launched the app. The notification will have the following:
+ - message: The push alert message.
+ - extras: Map of all the push extras.
+ - notificationId: (Android only) The ID of the posted notification.</p>
+
+<p><code>clear</code> is used to prevent getLaunchNotification from returning the notification again.</p>
+
+<p><code>
+    Ti.API.info(&quot;Launch notification: &quot; + UrbanAirship.getLaunchNotification(false).message);
+</code></p>
+
+<h3>getDeepLink([clear])</h3>
+
+<p>Gets the deep link that launched the app.</p>
+
+<p><code>clear</code> is used to prevent getDeepLink from returning the deepLink again.</p>
+
+<p><code>
+    Ti.API.info(&quot;Deep link: &quot; + UrbanAirship.getDeepLink(false));
+</code></p>
+
+<h3>displayMessageCenter()</h3>
+
+<p>Displays the message center.</p>
+
+<p><code>
+    UrbanAirship.displayMessageCenter();
+</code></p>
+
+<h3>associateIdentifier(key, identifier)</h3>
+
+<p>Associate a custom identifier.
+Previous identifiers will be replaced by the new identifiers each time associateIdentifier is called.
+It is a set operation.
+ - key: The custom key for the identifier as a string.
+ - identifier: The value of the identifier as a string, or <code>null</code> to remove the identifier.</p>
+
+<p><code>
+    UrbanAirship.associateIdentifier(&quot;customKey&quot;, &quot;customIdentifier&quot;);
+</code></p>
+
+<h3>addCustomEvent(eventPayload)</h3>
+
+<p>Adds a custom event.
+ - eventPayload: The custom event payload as a string.</p>
+
+<p><code></code>`
+    var customEvent = {
+      event<em>name: &#39;customEventName&#39;,
+      event</em>value: 2016,
+      transaction<em>id: &#39;customTransactionId&#39;,
+      interaction</em>id: &#39;customInteractionId&#39;,
+      interaction_type: &#39;customInteractionType&#39;,
+      properties: {
+        someBoolean: true,
+        someDouble: 124.49,
+        someString: &quot;customString&quot;,
+        someInt: 5,
+        someLong: 1234567890,
+        someArray: [&quot;tangerine&quot;, &quot;pineapple&quot;, &quot;kiwi&quot;]
+      }
+    };</p>
+
+<pre><code>var customEventPayload = JSON.stringify(customEvent);
+UrbanAirship.addCustomEvent(customEventPayload);</code></pre>
+
+<p><code></code>`</p>

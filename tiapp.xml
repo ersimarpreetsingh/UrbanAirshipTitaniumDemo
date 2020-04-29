@@ -14,8 +14,8 @@
     <guid>d156a705-093f-441e-9444-e39a2d7fbac9</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <property name="run-on-main-thread" type="bool">true</property>
-  	<property name="com.urbanairship.development_app_key" type="string">YOUR APP KEY</property>
-  	<property name="com.urbanairship.development_app_secret" type="string">YOUR APP SECRET</property>
+  	<property name="com.urbanairship.development_app_key" type="string">bpzXTjdIQAStivJzIpHEuA</property>
+  	<property name="com.urbanairship.development_app_secret" type="string">hP5xqbGbRJeUK0pY01kbOg</property>
   	<property name="com.urbanairship.in_production" type="bool">false</property>
   	<property name="com.urbanairship.ios_foreground_notification_presentation_alert" type="bool">true</property>
   <property name="com.urbanairship.ios_foreground_notification_presentation_badge" type="bool">true</property>

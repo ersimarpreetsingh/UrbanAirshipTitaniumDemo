@@ -1,0 +1,152 @@
+<h1>Airship Titanium Module API</h1>
+
+<h2>Events</h2>
+
+<h4>EVENT<em>CHANNEL</em>UPDATED</h4>
+
+<p>Listens for any channel updates. Event contains the following:
+ - channelId: The channel ID of the app instance.
+ - deviceToken: (iOS only) The device token.</p>
+
+<p><code>
+    Airship.addEventListener(Airship.EVENT_CHANNEL_UPDATED, function(e) {
+        Ti.API.info(&#39;Channel Updated: &#39; + Airship.channelId)
+    });
+</code></p>
+
+<h4>EVENT<em>PUSH</em>RECEIVED</h4>
+
+<p>Listens for any push received events. Event contains the following:
+ - message: The push alert message.
+ - extras: Map of all the push extras.
+ - notificationId: (Android only) The ID of the posted notification.</p>
+
+<p><code>
+    Airship.addEventListener(Airship.EVENT_PUSH_RECEIVED, function(e) {
+        Ti.API.info(&#39;Push received: &#39; + e.message);
+    });
+</code></p>
+
+<h4>EVENT<em>DEEP</em>LINK_RECEIVED</h4>
+
+<p>Listens for any deep link events. Event contains the following:
+ - deepLink: The deep link.</p>
+
+<p><code>
+    Airship.addEventListener(Airship.EVENT_DEEP_LINK_RECEIVED, function(e) {
+        Ti.API.info(&#39;DeepLink: &#39; + e.deepLink);
+    });
+</code></p>
+
+<h2>Properties</h2>
+
+<h4>channelId</h4>
+
+<p>Returns the app&#39;s channel ID. The channel ID might not be immediately available on a new install. Use
+the EVENT<em>CHANNEL</em>UPDATED event to be notified when it becomes available.</p>
+
+<p><code>
+    Ti.API.info(&#39;Channel ID: &#39; + Airship.channelId);
+</code></p>
+
+<h4>userNotificationsEnabled</h4>
+
+<p>Enables or disables user notifications. On iOS, user notifications can only be enabled and enabling
+notifications the first time will prompt the user to enable notifications.</p>
+
+<p><code>
+    Airship.userNotificationsEnabled = true;
+</code></p>
+
+<h4>tags</h4>
+
+<p>Sets or gets the channel tags. Tags can be used to segment the audience.</p>
+
+<p><code></code>`
+    Airship.tags = [&quot;test&quot;, &quot;titanium&quot;];</p>
+
+<pre><code>Airship.tags.forEach(function(tag) {
+    Ti.API.info(&quot;Tag: &quot; + tag);
+});</code></pre>
+
+<p><code></code>`</p>
+
+<h4>namedUser</h4>
+
+<p>Sets the namedUser for the device.</p>
+
+<p><code>
+    Airship.namedUser = &quot;totes mcgoats&quot;;
+</code></p>
+
+<h2>Methods</h2>
+
+<h3>getLaunchNotification([clear])</h3>
+
+<p>Gets the notification that launched the app. The notification will have the following:
+ - message: The push alert message.
+ - extras: Map of all the push extras.
+ - notificationId: (Android only) The ID of the posted notification.</p>
+
+<p><code>clear</code> is used to prevent getLaunchNotification from returning the notification again.</p>
+
+<p><code>
+    Ti.API.info(&quot;Launch notification: &quot; + Airship.getLaunchNotification(false).message);
+</code></p>
+
+<h3>getDeepLink([clear])</h3>
+
+<p>Gets the deep link that launched the app.</p>
+
+<p><code>clear</code> is used to prevent getDeepLink from returning the deepLink again.</p>
+
+<p><code>
+    Ti.API.info(&quot;Deep link: &quot; + Airship.getDeepLink(false));
+</code></p>
+
+<h3>displayMessageCenter()</h3>
+
+<p>Displays the message center.</p>
+
+<p><code>
+    Airship.displayMessageCenter();
+</code></p>
+
+<h3>associateIdentifier(key, identifier)</h3>
+
+<p>Associate a custom identifier.
+Previous identifiers will be replaced by the new identifiers each time associateIdentifier is called.
+It is a set operation.
+ - key: The custom key for the identifier as a string.
+ - identifier: The value of the identifier as a string, or <code>null</code> to remove the identifier.</p>
+
+<p><code>
+    Airship.associateIdentifier(&quot;customKey&quot;, &quot;customIdentifier&quot;);
+</code></p>
+
+<h3>addCustomEvent(eventPayload)</h3>
+
+<p>Adds a custom event.
+ - eventPayload: The custom event payload as a string.</p>
+
+<p><code></code>`
+    var customEvent = {
+      event<em>name: &#39;customEventName&#39;,
+      event</em>value: 2016,
+      transaction<em>id: &#39;customTransactionId&#39;,
+      interaction</em>id: &#39;customInteractionId&#39;,
+      interaction_type: &#39;customInteractionType&#39;,
+      properties: {
+        someBoolean: true,
+        someDouble: 124.49,
+        someString: &quot;customString&quot;,
+        someInt: 5,
+        someLong: 1234567890,
+        someArray: [&quot;tangerine&quot;, &quot;pineapple&quot;, &quot;kiwi&quot;]
+      }
+    };</p>
+
+<pre><code>var customEventPayload = JSON.stringify(customEvent);
+Airship.addCustomEvent(customEventPayload);</code></pre>
+
+<p><code></code>`</p>

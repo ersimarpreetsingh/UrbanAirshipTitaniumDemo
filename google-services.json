@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "123319793816",
+    "firebase_url": "https://fir-proj-d6402.firebaseio.com",
+    "project_id": "fir-proj-d6402",
+    "storage_bucket": "fir-proj-d6402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123319793816:android:5ed5d1d265afad575bf8ed",
+        "android_client_info": {
+          "package_name": "com.demo.simar.air"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123319793816-mvln9krr4mvau7qho5gf5hv60hiuqom0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU-Ry9pdPfEkM2Wp-facngq91pu3KtWp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123319793816-mvln9krr4mvau7qho5gf5hv60hiuqom0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
